@@ -1,0 +1,30 @@
+.offcanvas{
+  background-color:   rgb(85, 85, 242);
+}
+
+.offcanvas-body{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  vertical-align: middle;
+}
+
+#menu-list{
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+}
+
+#menu-item{
+  padding: 20px;
+  font-size: larger;
+  color: white;
+
+}
+
+#menu-item:hover{
+  padding: 20px;
+  border-radius: 10px;
+  color: black;
+  background-color: whitesmoke;
+}

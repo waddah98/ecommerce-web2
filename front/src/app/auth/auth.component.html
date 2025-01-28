@@ -1,0 +1,33 @@
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="buttons-container">
+                <button
+                [ngStyle]="loginButtonClicked ? clickedMyStyles : myStyles"
+                (click)="loginClicked()">
+                    Login
+                </button>
+                
+                <button 
+                [ngStyle]="signupButtonClicked ? clickedMyStyles : myStyles"
+                (click)="signupClicked()">
+                    Signup
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row card-container">
+        <div class="card">
+            <div class="card-body">
+                @if (loginButtonClicked) {
+                    <app-login></app-login>
+                    You don't have an account? <a (click)="signupClicked()" > Register now</a>.
+                }@else if (signupButtonClicked) {
+                    <app-signup></app-signup>
+                    You already have an account? <a (click)="loginClicked()" >Sign in</a>.
+                }
+            </div>
+        </div>
+    </div>
+    
+</div>

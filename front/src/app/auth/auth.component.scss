@@ -1,0 +1,27 @@
+.buttons-container{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.card-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.card{
+    width: 50%;
+    height: 50%;
+}
+
+
+.card-body{
+    a{
+        color: blue; 
+        text-decoration: underline;
+        cursor: pointer;
+        margin-left: 5px;
+    }
+}

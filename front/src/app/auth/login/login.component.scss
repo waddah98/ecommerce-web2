@@ -1,0 +1,11 @@
+form{
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+}
+
+.login-button-container{
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+}

@@ -1,0 +1,36 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+        <a class="navbar-brand">
+            <button class="bi bi-list"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasWithBothOptions"
+            aria-controls="offcanvasWithBothOptions">
+            </button>
+            Hello Admin
+        </a>
+    </div>
+</nav>
+
+
+
+
+
+
+
+
+
+
+<div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
+    <div class="offcanvas-header">
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <div id="menu-list">
+            @for (item of sidelineItems; track item) {
+                <div id="menu-item" [routerLink]="[item.link]" routerLinkActive="router-link-active" > <i [classList]="item.icon"></i> {{item.name}} </div>
+            }
+
+        </div>
+    </div>
+</div>
