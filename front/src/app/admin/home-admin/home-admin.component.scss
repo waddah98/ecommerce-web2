@@ -1,0 +1,23 @@
+.row{
+    height: max-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90%;
+}
+
+.col-4{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 50px;
+}
+
+
+
+.card-body{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+}
