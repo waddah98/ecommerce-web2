@@ -1,16 +1,43 @@
-<app-header-sidebar></app-header-sidebar>
-<div class="row full-height">
-    <div class="col-4">
-        <div class="card products-container">
-            <div class="card-body">
-                <div class="left">Products</div>
-            </div>
-        </div>
-        <div class="card categories-container">
-            <div class="card-body">
-                <div class="right">Categories</div>
-            </div>
-        </div>
+<mat-toolbar>
+    <mat-toolbar-row>
+        <span>Hello Admin</span>
+    </mat-toolbar-row>
+</mat-toolbar>
 
+<div class="row">
+    <div class="col-4">
+        @for (item of menuItems; track item) {
+            <div class="buttons-container">
+                <button>
+                    <i [classList]="item.icon"></i> 
+                    <div id="menu-item" [routerLink]="[item.link]" routerLinkActive="router-link-active" > {{item.name}} </div>
+                </button>
+                
+            </div>
+        }
     </div>
+</div>
+
+<div class="row card-container">
+    <div class="col-11">
+        <div class="card">
+            <div class="card-header">
+                <h2>Liste</h2>
+            </div>
+            
+            <div class="card-body text-center">
+                get the table from each component separately
+                <table class="table">
+                    <thead></thead>
+                    <tbody></tbody>
+                    <tfoot></tfoot>
+                </table>
+            </div>
+
+            <div class="card-footer text-center">
+                get the pagination from each component separately
+            </div>
+        </div>
+    </div>
+    
 </div>
