@@ -5,6 +5,8 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { HomeAdminComponent } from './admin/home-admin/home-admin.component';
 import { ProductsComponent } from './admin/products/products.component';
 import { CategoriesComponent } from './admin/categories/categories.component';
+import { AddCategoryComponent } from './admin/categories/add-category/add-category.component';
+import { AddProductComponent } from './admin/products/add-product/add-product.component';
 
 export const routes: Routes = [
     {path:'', component: AuthComponent},
@@ -15,6 +17,8 @@ export const routes: Routes = [
     {path:'admin/home',component: HomeAdminComponent},
     {path:'admin/products',component: ProductsComponent},
     {path:'admin/categories',component: CategoriesComponent},
+    {path:'admin/categories/add',component: AddCategoryComponent},
+    {path:'admin/products/add',component: AddProductComponent},
 
                         /** CUSTOMER */
     // {path:'customer/home',component: CategoriesComponent},

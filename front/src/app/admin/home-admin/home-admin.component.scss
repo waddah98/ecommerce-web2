@@ -33,7 +33,9 @@ button{
     background-color: #536DE6;
 }
 
-
+button:visited{
+    background-color: #000;
+}
 
 .card-container{
     margin-top: 100px;

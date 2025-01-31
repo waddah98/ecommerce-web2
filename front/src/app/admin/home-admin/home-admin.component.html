@@ -8,11 +8,13 @@
     <div class="col-4">
         @for (item of menuItems; track item) {
             <div class="buttons-container">
-                <button>
+                <button 
+                [id]="item.tagId" 
+                (click)="onNavBtnClick(item)"
+                [ngStyle]="item.clicked ? clickedBtnStyle : btnStyle">
                     <i [classList]="item.icon"></i> 
-                    <div id="menu-item" [routerLink]="[item.link]" routerLinkActive="router-link-active" > {{item.name}} </div>
+                    <div id="menu-item"> {{item.name}} </div>
                 </button>
-                
             </div>
         }
     </div>
@@ -22,22 +24,25 @@
     <div class="col-11">
         <div class="card">
             <div class="card-header">
-                <h2>Liste</h2>
+                <h2>List of {{loadedPage}} </h2>
             </div>
             
             <div class="card-body text-center">
-                get the table from each component separately
-                <table class="table">
-                    <thead></thead>
-                    <tbody></tbody>
-                    <tfoot></tfoot>
-                </table>
+                @switch (loadedPage) {
+                    @case ("Products") {
+                        <app-products></app-products>
+                    }
+                    @case ("Users") {
+                        <app-users></app-users>
+                    }
+                    @default {
+                        <app-categories></app-categories>
+                    }
+                }
             </div>
-
             <div class="card-footer text-center">
                 get the pagination from each component separately
             </div>
-        </div>
     </div>
     
 </div>

@@ -1,0 +1,26 @@
+.add-btn-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+}
+
+.table{
+    thead{
+        margin-bottom: 10px;
+    }
+    // table-layout: fixed;
+    th{
+        font-weight: 500;
+        font-size: 20px;
+    }
+    tr{
+        font-size: 16px;
+    }
+}
+
+.buttons-container{
+    button{
+        margin-left: 10px;
+    }
+}
