@@ -1,0 +1,8 @@
+Work on our data schema: define all the entities and relations
+
+revist all forms and work on their validation
+
+Products:
+Change the add product to books
+edit-product
+delete-product
