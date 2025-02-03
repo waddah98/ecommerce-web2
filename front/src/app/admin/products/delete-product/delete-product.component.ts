@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-delete-product',
@@ -8,5 +8,5 @@ import { Component } from '@angular/core';
   styleUrl: './delete-product.component.scss'
 })
 export class DeleteProductComponent {
-
+  @Input() productId !: string;
 }

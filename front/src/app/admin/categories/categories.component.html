@@ -8,7 +8,6 @@
 <table class="table table-hover table-spaced">
     <thead>
         <tr class="text-center align-middle">
-            <th>Image</th>
             <th>
                 Label
                 <!-- <div class="d-flex justify-content-center" id="labelFilter">
@@ -16,7 +15,10 @@
                 </div> -->
             </th>
             <th>
-                Number of Products
+                Description
+            </th>
+            <th>
+                Number of Books
                 <!-- <div class="d-flex justify-content-center" id="productsNumberFilter">
                     <input type="text" class="form-control w-auto">
                 </div> -->
@@ -27,9 +29,7 @@
     <tbody>
         @for (item of categoriesData; track $index) {
             <tr class="text-center align-middle">
-                <td> 
-                    <img [src]="item.image" alt="" width="100px">
-                </td>
+                <td> {{item.categoryLabel}} </td>
                 <td> {{item.categoryLabel}} </td>
                 <td> 
                     <button type="button" class="btn btn-outline-primary">

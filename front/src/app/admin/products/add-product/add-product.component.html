@@ -3,28 +3,50 @@
 </div>
 
 <mat-dialog-content>
-    <form>
+    <form [formGroup]="addProductForm" (ngSubmit)="addProduct()">
         <div class="imgUpload">
-            <label class="form-label">Porduct Image</label>
-            <input type="file" class="form-control">
+            <label class="form-label">Cover Image</label>
+            <div class="file-drop-area" (click)="fileInput.click()">
+                <span *ngIf="!previewUrl" class="drop-text">Drag & drop a file or click to browse</span>
+                <input
+                    type="file"
+                    (change)="onFileSelect($event)"
+                    #fileInput
+                    hidden/>
+            </div>
+        </div>
+        <div class="card imagePreview" *ngIf="previewUrl">
+            <div class="card-body">
+                <img [src]="previewUrl" alt="Preview" class="preview-image">
+            </div>
+        </div>
+        
+        <div>
+            <label class="form-label">ISBN</label>
+            <input formControlName="isbn" class="form-control">
+        </div>
+        <div>
+            <label class="form-label">Title</label>
+            <input formControlName="title" class="form-control">
+        </div>
+        <div>
+            <label class="form-label">Description</label>
+            <input formControlName="description" class="form-control">
         </div>
         <div>
             <label class="form-label">Category</label>
-            <input type="text" class="form-select">
-        </div>
-        <div>
-            <label class="form-label">Label</label>
-            <input type="text" class="form-control">
+            <input formControlName="category" class="form-control">
         </div>
         <div>
             <label class="form-label">Price</label>
-            <input type="text" class="form-control">
+            <input formControlName="price" class="form-control" (input)="onInputChange($event)"
+            (keypress)="onKeyPress($event)">
         </div>
+        <mat-dialog-actions align="end">
+            <button class="btn btn-danger" mat-dialog-close>Close</button>
+            <button class="btn btn-success" type="submit" [disabled]="!addProductForm.valid">Add</button>
+        </mat-dialog-actions>
     </form>
     
 </mat-dialog-content>
 
-<mat-dialog-actions align="end">
-    <button class="btn btn-danger" mat-dialog-close>Close</button>
-    <button class="btn btn-success" [mat-dialog-close]="true">Add</button>
-</mat-dialog-actions>

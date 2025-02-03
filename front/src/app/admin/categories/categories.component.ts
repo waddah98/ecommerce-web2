@@ -33,6 +33,6 @@ export class CategoriesComponent {
   openDeleteDialog(categoryId: string ){
     const dialogRef = this.dialog.open(DeleteCategoryComponent);
     const instance = dialogRef.componentInstance;
-    // instance.categoryId = categoryId;
+    instance.categoryId = categoryId;
   }
 }

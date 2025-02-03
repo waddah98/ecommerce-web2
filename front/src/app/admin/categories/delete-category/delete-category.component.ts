@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MatDialogModule } from '@angular/material/dialog';
 
 @Component({
@@ -11,5 +11,6 @@ import { MatDialogModule } from '@angular/material/dialog';
   styleUrl: './delete-category.component.scss'
 })
 export class DeleteCategoryComponent {
+  @Input() categoryId !: string;
   
 }

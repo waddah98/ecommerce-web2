@@ -1,4 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { AddProductComponent } from './add-product/add-product.component';
+import { EditProductComponent } from './edit-product/edit-product.component';
+import { DeleteCategoryComponent } from '../categories/delete-category/delete-category.component';
+import { DeleteProductComponent } from './delete-product/delete-product.component';
 
 @Component({
   selector: 'app-products',
@@ -30,6 +35,21 @@ export class ProductsComponent {
   ]
 
   columnNames = Object.keys(this.productsData[0]);
+
+  readonly dialog = inject(MatDialog);
+  openAddDialog(){
+    const dialogRef = this.dialog.open(AddProductComponent);
+  };
+  openEditDialog(productId: string ){
+      const dialogRef = this.dialog.open(EditProductComponent);
+      const instance = dialogRef.componentInstance;
+      instance.productId = productId;
+    }
+    openDeleteDialog(productId: string ){
+      const dialogRef = this.dialog.open(DeleteProductComponent);
+      const instance = dialogRef.componentInstance;
+      instance.productId = productId;
+    }
 
 
 }
