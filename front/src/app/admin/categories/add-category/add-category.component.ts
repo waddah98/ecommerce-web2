@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import {MatDialog, MatDialogModule, MatDialogRef} from '@angular/material/dialog';
-import { CategoriesComponent } from '../categories.component';
+import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { CategoriesService } from '../../../services/categories.service';
 
 
@@ -44,6 +43,7 @@ export class AddCategoryComponent implements OnInit{
     this.categoriesService.addCategory(formData).subscribe({
       next: (response) => {
         alert('Category added successfully!');
+        this.closeDialog();
       },
       error: (err) => {
         alert('Failed to add category.');

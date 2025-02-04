@@ -11,8 +11,7 @@
         Voulez-vous continuer ?
     </p>
 </mat-dialog-content>
-
 <mat-dialog-actions align="end">
     <button class="btn btn-secondary" mat-dialog-close>Close</button>
-    <button class="btn btn-danger" [mat-dialog-close]="true">Delete</button>
+    <button class="btn btn-danger" (click)="deleteCategory()">Delete</button>
 </mat-dialog-actions>

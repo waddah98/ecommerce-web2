@@ -1,0 +1,17 @@
+{
+    "name": "mega-pc/api",
+    "autoload": {
+        "psr-4": {
+            "MegaPc\\Api\\": "api/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Waddah Chelly",
+            "email": "73547198+waddah98@users.noreply.github.com"
+        }
+    ],
+    "require": {
+        "firebase/php-jwt": "^6.11"
+    }
+}

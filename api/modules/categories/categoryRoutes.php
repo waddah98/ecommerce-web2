@@ -8,22 +8,38 @@ $requestMethod = $_SERVER['REQUEST_METHOD'];
 $path = explode('/', trim($_SERVER['REQUEST_URI'], '/'));
 
 if ($path[0] === 'categories') {
-    if ($requestMethod === 'GET' && count($path) === 1) {
-        AuthMiddleware::authorize("admin"); // Only admins can manage categories
-        $controller->getCategories();
-    } elseif ($requestMethod === 'POST' && count($path) === 1) {
-        AuthMiddleware::authorize("admin"); // Only admins can create categories
+    if($requestMethod === 'POST' && isset($path[1]) && $path[1] === 'addCategory'){
+        AuthMiddleware::authorize("admin"); // Only admins can add a category
         $controller->createCategory();
-    } elseif ($requestMethod === 'GET' && count($path) === 2) {
-        AuthMiddleware::authenticate(); // Both admins & customers can view category details
-        $controller->getCategory($path[1]);
-    } elseif ($requestMethod === 'PUT' && count($path) === 2) {
-        AuthMiddleware::authorize("admin"); // Only admins can update categories
-        $controller->updateCategory($path[1]);
-    } elseif ($requestMethod === 'DELETE' && count($path) === 2) {
-        AuthMiddleware::authorize("admin"); // Only admins can delete categories
-        $controller->deleteCategory($path[1]);
-    } else {
+    }
+
+
+    // Route: GET /categories/fetchAll
+    elseif ($requestMethod === 'GET' && isset($path[1]) && $path[1] === 'fetchAll') {
+        AuthMiddleware::authorize("admin"); // Only admins can fetch all categories
+        $controller->getCategories();
+    }
+
+    // Route: GET /categories/fetchById/{id}
+    elseif ($requestMethod === 'GET' && isset($path[1]) && $path[1] === 'fetchById' && isset($path[2])) {
+        AuthMiddleware::authorize("admin"); // Only admins can fetch a specific category
+        $controller->getCategory($path[2]); // Pass the ID from the URL
+    }
+
+    // Route: PUT /categories/updateCategory/{id}
+    elseif ($requestMethod === 'PUT' && isset($path[1]) && $path[1] === 'updateCategory' && isset($path[2])) {
+        AuthMiddleware::authorize("admin"); // Only admins can update a category
+        $controller->updateCategory($path[2]); // Pass the ID from the URL
+    }
+
+    // Route: DELETE /categories/deleteCategory/{id}
+    elseif ($requestMethod === 'DELETE' && isset($path[1]) && $path[1] === 'deleteCategory' && isset($path[2])) {
+        AuthMiddleware::authorize("admin"); // Only admins can delete a category
+        $controller->deleteCategory($path[2]); // Pass the ID from the URL
+    }
+
+    // Invalid route
+    else {
         http_response_code(404);
         echo json_encode(["message" => "Route not found"]);
     }

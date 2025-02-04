@@ -1,24 +1,21 @@
 <?php
-
 class Database {
-    private $pdo;
+    private static $host = "127.0.0.0";
+    private static $db_name = "bookstore";
+    private static $username = "root";
+    private static $password = "0000";
+    private static $conn = null;
 
-    public function __construct() {
-        $config = require __DIR__ . '/../config/config.php';
-        $db = $config['database'];
+    public static function getConnection() {
+        if (self::$conn === null) {
+            self::$conn = new mysqli(self::$host, self::$username, self::$password, self::$db_name);
 
-        try {
-            $dsn = "mysql:host={$db['host']};port={$db['port']};dbname={$db['dbname']};charset={$db['charset']}";
-            $this->pdo = new PDO($dsn, $db['username'], $db['password'], [
-                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
-            ]);
-        } catch (PDOException $e) {
-            die("Database connection failed: " . $e->getMessage());
+            if (self::$conn->connect_error) {
+                die("Database connection failed: " . self::$conn->connect_error);
+            }
         }
-    }
 
-    public function getConnection() {
-        return $this->pdo;
+        return self::$conn;
     }
 }
+?>

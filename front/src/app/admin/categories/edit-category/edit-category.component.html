@@ -12,11 +12,10 @@
             <label class="form-label">Description</label>
             <textarea formControlName="description" cols="5" rows="3" class="form-control"></textarea>
         </div>
+        <mat-dialog-actions align="end">
+            <button class="btn btn-danger" mat-dialog-close>Close</button>
+            <button class="btn btn-success" [mat-dialog-close]="true">Edit</button>
+        </mat-dialog-actions>
     </form>
-    
 </mat-dialog-content>
 
-<mat-dialog-actions align="end">
-    <button class="btn btn-danger" mat-dialog-close>Close</button>
-    <button class="btn btn-success" [mat-dialog-close]="true">Add</button>
-</mat-dialog-actions>
