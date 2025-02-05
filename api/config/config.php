@@ -5,7 +5,7 @@ return [
         'name' => 'My PHP API',
         'env' => 'development', 
         'debug' => true,
-        'base_url' => 'http://localhost:8000',
+        'base_url' => 'http://localhost:80',
     ],
     
     'database' => [

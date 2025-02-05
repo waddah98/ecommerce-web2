@@ -1,6 +1,12 @@
 <?php
 
 require_once __DIR__ . '/UserModel.php';
+require_once __DIR__ . '/../../config/config.php';
+require_once __DIR__ . '/../../core/jwt.php';
+require_once __DIR__ . '/../../core/Response.php';
+
+use Firebase\JWT\JWT;
+
 
 class UserController {
     private $userModel;
@@ -8,6 +14,8 @@ class UserController {
     public function __construct() {
         $this->userModel = new UserModel();
     }
+
+    
 
     public function register() {
         $input = json_decode(file_get_contents("php://input"), true);
@@ -39,7 +47,7 @@ class UserController {
             echo json_encode($user);
         } else {
             http_response_code(404);
-            echo json_encode(["message" => "User not found"]);
+            Response::json(["error" => "User not found"], 404);
         }
     }
 }

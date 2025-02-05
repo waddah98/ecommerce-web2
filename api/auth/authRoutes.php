@@ -8,7 +8,12 @@ $path = explode('/', trim($_SERVER['REQUEST_URI'], '/'));
 
 if ($path[0] === 'auth' && $requestMethod === 'POST' && $path[1] === 'login') {
     $controller->login();
-} else {
+}
+    elseif ($path[0] === 'auth' && $requestMethod === 'POST' && $path[1] === 'signup') {
+        $controller->signup();
+    }
+
+else {
     http_response_code(404);
-    echo json_encode(["message" => "Route not found"]);
+    Response::json(["message" => "Route not found"]);
 }

@@ -26,7 +26,7 @@ class ProductController {
         $data = json_decode(file_get_contents("php://input"), true);
 
         if (!isset($data['title'], $data['author'], $data['description'], $data['published_year'], 
-                  $data['price'], $data['quantity'], $data['image'], $data['category_id'])) {
+                    $data['price'], $data['quantity'], $data['image'], $data['category_id'])) {
             Response::json(["error" => "Missing required fields"], 400);
         }
 
@@ -42,7 +42,7 @@ class ProductController {
         $data = json_decode(file_get_contents("php://input"), true);
 
         if (!isset($data['title'], $data['author'], $data['description'], $data['published_year'], 
-                  $data['price'], $data['quantity'], $data['image'], $data['category_id'])) {
+                    $data['price'], $data['quantity'], $data['image'], $data['category_id'])) {
             Response::json(["error" => "Missing required fields"], 400);
         }
 
