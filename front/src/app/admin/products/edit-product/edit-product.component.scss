@@ -1,0 +1,47 @@
+.upload-card {
+    border: 2px dashed #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    max-width: 400px;
+    margin: 0 auto;
+    background-color: #f9f9f9;
+  }
+  
+  .file-drop-area {
+    border: 2px dashed #aaa;
+    border-radius: 5px;
+    padding: 20px;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+  }
+  
+  .file-drop-area:hover {
+    border-color: #007bff;
+  }
+  
+  .drop-text {
+    color: #666;
+    font-size: 16px;
+  }
+  
+  .card .imagePreview {
+    margin-top: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+  }
+  
+  /* Style for the preview image */
+  .preview-image {
+    width: 100px;
+    height: 100px;
+    // display: block;
+  }
+
+  mat-dialog-actions{
+    display: flex;
+    column-gap: 10px;
+}

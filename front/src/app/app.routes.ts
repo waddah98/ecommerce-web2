@@ -7,6 +7,7 @@ import { ProductsComponent } from './admin/products/products.component';
 import { CategoriesComponent } from './admin/categories/categories.component';
 import { AddCategoryComponent } from './admin/categories/add-category/add-category.component';
 import { AddProductComponent } from './admin/products/add-product/add-product.component';
+import { ClientComponent } from './client/client.component';
 
 export const routes: Routes = [
     {path:'', component: AuthComponent},
@@ -20,6 +21,6 @@ export const routes: Routes = [
     {path:'admin/categories/add',component: AddCategoryComponent},
     {path:'admin/products/add',component: AddProductComponent},
 
-                        /** CUSTOMER */
-    // {path:'customer/home',component: CategoriesComponent},
+                        /** CLIENT */
+    {path:'client/home',component: ClientComponent},
 ];

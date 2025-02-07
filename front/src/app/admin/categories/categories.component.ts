@@ -25,12 +25,12 @@ export class CategoriesComponent {
   openAddDialog(){
     const dialogRef = this.dialog.open(AddCategoryComponent);
   }
-  openEditDialog(categoryId: string ){
+  openEditDialog(categoryId: number ){
     const dialogRef = this.dialog.open(EditCategoryComponent);
     const instance = dialogRef.componentInstance;
     instance.categoryId = categoryId;
   }
-  openDeleteDialog(categoryId: string ){
+  openDeleteDialog(categoryId: number ){
     const dialogRef = this.dialog.open(DeleteCategoryComponent);
     const instance = dialogRef.componentInstance;
     instance.categoryId = categoryId;

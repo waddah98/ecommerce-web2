@@ -40,12 +40,12 @@ export class ProductsComponent {
   openAddDialog(){
     const dialogRef = this.dialog.open(AddProductComponent);
   };
-  openEditDialog(productId: string ){
+  openEditDialog(productId: number){
       const dialogRef = this.dialog.open(EditProductComponent);
       const instance = dialogRef.componentInstance;
       instance.productId = productId;
     }
-    openDeleteDialog(productId: string ){
+    openDeleteDialog(productId: number){
       const dialogRef = this.dialog.open(DeleteProductComponent);
       const instance = dialogRef.componentInstance;
       instance.productId = productId;

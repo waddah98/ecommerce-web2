@@ -1,0 +1,32 @@
+<mat-toolbar>
+    <mat-toolbar-row>
+        <div class="user-info-container">
+            <i class="bi bi-person-circle"></i>
+            <span>Hello --clientname--</span>
+        </div>
+
+        <div class="nav-container">
+            <button class="nav-element">
+                <i class="bi bi-house-fill"></i>
+                Home
+            </button>
+            <button class="nav-element">
+                <i class="bi bi-bookmark-star-fill"></i>
+                Favourites
+            </button>
+            <button class="nav-element">
+                <i class="bi bi-tags-fill"></i>
+                Categories
+            </button>
+        </div>
+    </mat-toolbar-row>
+</mat-toolbar>
+
+<p-galleria (value)="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5">
+    <ng-template #item let-item>
+        <img [src]="item.itemImageSrc" style="width:100%" />
+    </ng-template>
+    <ng-template #thumbnail let-item>
+        <img [src]="item.thumbnailImageSrc" />
+    </ng-template>
+</p-galleria>

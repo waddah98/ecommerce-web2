@@ -40,3 +40,8 @@
     height: 100px;
     // display: block;
   }
+
+  mat-dialog-actions{
+    display: flex;
+    column-gap: 10px;
+}

@@ -1,1 +1,16 @@
-<p>delete-product works!</p>
+<div class="title-container text-center">
+    <h2 mat-dialog-title>Delete a Product</h2>
+</div>
+
+<mat-dialog-content>
+    <p>
+        Vous êtes sur le point de supprimer un produit.
+    </p>
+    <p>
+        Voulez-vous continuer ?
+    </p>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button class="btn btn-secondary" mat-dialog-close>Close</button>
+    <button class="btn btn-danger" (click)="deleteProduct()">Delete</button>
+</mat-dialog-actions>

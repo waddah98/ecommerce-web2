@@ -31,6 +31,7 @@ export class EditCategoryComponent implements OnInit{
 
   editCategory(){
     if(this.editCategoryForm.invalid){
+      alert('Please fill all required fields');
       return;
     }
     const formData = new FormData();
