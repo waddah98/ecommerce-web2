@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, model } from '@angular/core';
+import { Component } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatChipsModule } from '@angular/material/chips';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { GalleriaModule } from 'primeng/galleria';
-import { PhotoService } from '@/service/photoservice';
 
 
 @Component({
@@ -11,30 +12,19 @@ import { PhotoService } from '@/service/photoservice';
   imports: [
     CommonModule,
     MatToolbarModule,
-    GalleriaModule,
+    MatButtonModule,
+    MatCardModule,
+    MatChipsModule,
   ],
-  providers: [PhotoService],
   templateUrl: './client.component.html',
   styleUrl: './client.component.scss'
 })
 export class ClientComponent {
-  images = model([]);
+  
+  images = [700, 800, 807].map((n) => `https://picsum.photos/id/${n}/900/500`);
 
-  responsiveOptions: any[] = [
-    {
-        breakpoint: '1300px',
-        numVisible: 4
-    },
-    {
-        breakpoint: '575px',
-        numVisible: 1
-    }
-];
 
-constructor(private photoService: PhotoService) {}
 
-    ngOnInit() {
-        this.photoService.getImages().then((images: never[]) => this.images.set(images));
-    }
+ngOnInit() {}
 
 }
