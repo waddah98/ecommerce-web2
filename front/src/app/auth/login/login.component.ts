@@ -1,7 +1,8 @@
+import { AuthService } from './../../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { emailValidator } from '../../validators/email.validators';
 
 
@@ -19,6 +20,8 @@ import { emailValidator } from '../../validators/email.validators';
   styleUrl: './login.component.scss'
 })
 export class LoginComponent implements OnInit{
+  constructor(private authService:AuthService, private router:Router){}
+
   loggingIn: boolean = false;
 
   loginForm !: FormGroup;
@@ -57,13 +60,32 @@ export class LoginComponent implements OnInit{
     //       this.loggingIn = false;
     //     },
     //   })
-  
+
     // }else{
     //   console.log("loginForm not valid");
     // }
 }
 
-signin(data: object){
-  // this.authService.signin(data);
+signin(){
+  this.loggingIn = true;
+  if(this.loginForm.valid){
+    this.authService.login(this.loginForm.value).subscribe({
+      next: (response:any)=>{
+        this.loginForm.reset();
+        this.authService.saveToken(response.token)
+        if(this.authService.getRole() === 'admin'){
+            this.router.navigate(['admin/home']);
+          } else{
+            this.router.navigate(['client/home'])
+          }
+      },
+      error: (err)=>{
+        this.loggingIn = false;
+      },
+      complete: ()=>{
+        this.loggingIn = false;
+      }
+    })
+  }
 }
 }

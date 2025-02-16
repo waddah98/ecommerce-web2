@@ -14,28 +14,59 @@ class UserController {
     public function __construct() {
         $this->userModel = new UserModel();
     }
-
+    
     
 
     public function register() {
         $input = json_decode(file_get_contents("php://input"), true);
-
-        if (!isset($input['name'], $input['email'], $input['password'], $input['role'])) {
-            http_response_code(400);
-            echo json_encode(["message" => "Missing required fields"]);
+    
+        if (!isset($input['name'], $input['email'], $input['password'])) {
+            Response::json(["message" => "Missing required fields"], 400);
+            return;
+        }
+        $role = $input['role'] ?? "customer";
+        $validRoles = ["admin", "customer"];
+        
+        if (!in_array($role, $validRoles)) {
+            Response::json(["message" => "Invalid role."], 400);
             return;
         }
 
         $existingUser = $this->userModel->getUserByEmail($input['email']);
         if ($existingUser) {
-            http_response_code(400);
-            echo json_encode(["message" => "Email already in use"]);
+            Response::json(["message" => "Email already in use"], 400);
             return;
         }
-
-        $this->userModel->createUser($input['name'], $input['email'], $input['password'], $input['role']);
-        echo json_encode(["message" => "User registered successfully"]);
+    
+        if ($this->userModel->createUser($input['name'], $input['email'], $input['password'], $role)) {
+            Response::json(["message" => "User registered successfully"], 201);
+        } else {
+            Response::json(["message" => "Registration failed"], 500);
+        }
     }
+
+    public function signin() {
+        $input = json_decode(file_get_contents("php://input"), true);
+    
+        if (!isset($input['email'], $input['password'])) {
+            Response::json(["message" => "Email and password required"], 400);
+            return;
+        }
+    
+        $user = $this->userModel->getUserByEmail($input['email']);
+        if (!$user || !password_verify($input['password'], $user['password'])) {
+            Response::json(["message" => "Invalid credentials"], 401);
+            return;
+        }
+    
+        $token = JWTHandler::generateToken($user);
+        Response::json([
+            "message" => "Login successful",
+            "token" => $token,
+            "role" => $user['role']
+        ]);
+    }
+    
 
     public function getUsers() {
         echo json_encode($this->userModel->getAllUsers());

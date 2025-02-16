@@ -6,6 +6,6 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
-    'MegaPc\\Api\\' => array($baseDir . '/src'),
+    'MegaPc\\Api\\' => array($baseDir . '/api'),
     'Firebase\\JWT\\' => array($vendorDir . '/firebase/php-jwt/src'),
 );

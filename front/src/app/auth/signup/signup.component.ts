@@ -1,7 +1,8 @@
+import { AuthService } from './../../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { emailValidator } from '../../validators/email.validators';
 import { similarPassword } from '../../validators/matching-password-validators';
 
@@ -9,8 +10,8 @@ import { similarPassword } from '../../validators/matching-password-validators';
   selector: 'app-signup',
   standalone: true,
   imports: [
-    CommonModule, 
-    FormsModule, 
+    CommonModule,
+    FormsModule,
     RouterLink,
     ReactiveFormsModule,
   ],
@@ -18,17 +19,21 @@ import { similarPassword } from '../../validators/matching-password-validators';
   styleUrl: './signup.component.scss'
 })
 export class SignupComponent implements OnInit{
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ){}
+
   signupForm!: FormGroup;
 
   public signinup: boolean = false;
   hasUserTyped: boolean = false;
 
-  
+
   ngOnInit(){
     this.signupForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email, emailValidator()]),
-      firstName: new FormControl('', [Validators.required]),
-      lastName: new FormControl('', [Validators.required]),
+      name: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required, Validators.minLength(8)]),
       confirm_password: new FormControl('', [Validators.required]),
     },
@@ -37,26 +42,22 @@ export class SignupComponent implements OnInit{
   }
 
   onSubmit(){
-    // this.signinup = true;
-    // if(this.signupForm.valid){
-    //   this.authService.signup(this.signupForm.value).subscribe({
-    //     next: (res) => {
-    //       this.signupForm.reset();
-    //       this.router.navigate(['home-user']);
-    //     },
-    //     error: (err) =>{
-    //       this.signinup = false;
-    //       this.notyf.error({
-    //         message:err.error.message,
-    //         duration: 5000,
-    //       });
-    //     },
-    //     complete: () => {
-    //       this.signinup = false;
-    //       this.notyf.success('Signup Successful');
-    //     }
-    //   })
-    // }
+    this.signinup = true;
+    if(this.signupForm.valid){
+      this.authService.signup(this.signupForm.value).subscribe({
+        next: (res) => {
+          this.signupForm.reset();
+          this.router.navigate(['client/home']);
+        },
+        error: (err) =>{
+          this.signinup = false;
+
+        },
+        complete: () => {
+          this.signinup = false;
+        }
+      })
+    }
   }
 
   onPasswordInput(){

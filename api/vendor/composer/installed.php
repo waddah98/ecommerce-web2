@@ -3,7 +3,7 @@
         'name' => 'mega-pc/api',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '0e67f26143d0e9c704a3e47918523820d5baec56',
+        'reference' => '8c1268e8396071a2a3e4401c94a8b8993534c8c9',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -22,7 +22,7 @@
         'mega-pc/api' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '0e67f26143d0e9c704a3e47918523820d5baec56',
+            'reference' => '8c1268e8396071a2a3e4401c94a8b8993534c8c9',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

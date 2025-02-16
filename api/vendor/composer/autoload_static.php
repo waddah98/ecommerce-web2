@@ -20,7 +20,7 @@ class ComposerStaticInitc61e969be75494d3c5da3798907405c3
     public static $prefixDirsPsr4 = array (
         'MegaPc\\Api\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/src',
+            0 => __DIR__ . '/../..' . '/api',
         ),
         'Firebase\\JWT\\' => 
         array (
