@@ -31,9 +31,9 @@
             <tr class="text-center align-middle">
                 <td> {{item.categoryLabel}} </td>
                 <td> {{item.categoryLabel}} </td>
-                <td> 
+                <td>
                     <button type="button" class="btn btn-outline-primary">
-                        {{item.productsNumber}} 
+                        {{item.productsNumber}}
                     </button>
                 </td>
                 <td class="buttons-container">
@@ -48,8 +48,23 @@
                 </td>
             </tr>
         }
-        
-        
+
+
     </tbody>
-    <tfoot></tfoot>
+    <tfoot>
+      <div class="buttons-container">
+        <button class="bi bi-chevron-double-left" (click)="loadCategories(1)" [disabled]="currentPage === 1"></button>
+        <button class="bi bi-chevron-left" (click)="loadCategories(currentPage-1)" [disabled]="currentPage === 1"></button>
+        @for (page of createRange(totalPages); track page) {
+            <button
+            [disabled]="page === currentPage"
+            (click)="loadCategories(page)"
+            >
+            {{page}}
+            </button>
+        }
+        <button class="bi bi-chevron-right" (click)="loadCategories(currentPage+1)" [disabled]="currentPage === totalPages"></button>
+        <button class="bi bi-chevron-double-right" (click)="loadCategories(totalPages)" [disabled]="currentPage === totalPages"></button>
+    </div>
+    </tfoot>
 </table>

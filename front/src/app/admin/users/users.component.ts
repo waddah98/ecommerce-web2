@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { AdminService } from '../../services/admin.service';
+import { error } from 'console';
+import { ɵInternalFormsSharedModule } from '@angular/forms';
 
 @Component({
   selector: 'app-users',
@@ -7,22 +10,25 @@ import { Component } from '@angular/core';
   templateUrl: './users.component.html',
   styleUrl: './users.component.scss'
 })
-export class UsersComponent {
-  usersData:any = [
-    {
-      email:"ivan_daniel86@hotmail.com",
-      phoneNumber:"00 000 000",
-      name:"Moses Shields",
-      registrationDate:"02/11/2024",
-      numberOfFavourites:19,
-    },
-    {
-      email:"jerald.monahan@hotmail.com",
-      phoneNumber:"11 111 111",
-      name:"Kristin Hessel",
-      registrationDate:"02/01/2025",
-      numberOfFavourites:3,
-    },
-    
-  ]
+export class UsersComponent implements OnInit {
+  constructor(private adminService:AdminService){}
+  ngOnInit(): void {}
+
+  fetching: boolean = false;
+  usersData:any;
+  getAllUsers(){
+    this.fetching = true;
+    this.adminService.fetchUsers().subscribe({
+      next: (response:any)=>{
+        this.usersData = response; //in the  backend add pagination data to the response
+        //the number of lines returned is false verify it
+      },
+      error: (err:any)=>{
+        this.fetching = false;
+      },
+      complete: () => {
+        this.fetching = false;
+      }
+    })
+  }
 }

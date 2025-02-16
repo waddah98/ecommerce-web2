@@ -6,7 +6,7 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class CategoriesService {
-    private apiUrl = `${environment.api_URL}/categories`;
+    private apiUrl = environment.api_URL + "modules/categories/categoryRoutes.php";
 
   constructor(private http: HttpClient) {}
 
@@ -19,6 +19,9 @@ export class CategoriesService {
   }
 
   getAllCategories(){
+    // const params = new HttpParams()
+    //   .set('page', page.toString())
+    //   .set('perPage', perPage.toString());
     return this.http.get(`${this.apiUrl}/fetchAll`);
   }
   getCategoryById(categoryId:number){

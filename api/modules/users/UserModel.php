@@ -28,9 +28,30 @@ class UserModel {
         return $stmt->fetch();
     }
 
-    public function getAllUsers() {
-        $stmt = $this->db->query("SELECT id, name, email, role FROM users");
-        return $stmt->fetchAll();
+    public function getAllUsers($page = 1, $perPage = 5) {
+        $offset = ($page - 1) * $perPage;
+        $query = "SELECT id, name, email, role FROM users LIMIT :limit OFFSET :offset";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindValue(':limit', $perPage, PDO::PARAM_INT);
+        $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+        $stmt->execute();
+        $users = $stmt->fetchAll();
+
+        $totalQuery = "SELECT COUNT(*) as total FROM categories";
+        $totalStmt = $this->db->query($totalQuery);
+        $total = $totalStmt->fetch()['total'];
+
+        $totalPages = ceil($total / $perPage);
+
+        return [
+            'users' => $users,
+            'pagination' => [
+                'total' => $total,
+                'per_page' => $perPage,
+                'current_page' => $page,
+                'total_pages' => $totalPages,
+            ],
+        ];
     }
 
     public function getUserById($id) {

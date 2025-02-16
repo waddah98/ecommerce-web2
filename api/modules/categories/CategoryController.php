@@ -1,6 +1,11 @@
 <?php
 
 require_once __DIR__ . '/CategoryModel.php';
+require_once __DIR__ . '/../../config/config.php';
+require_once __DIR__ . '/../../core/jwt.php';
+require_once __DIR__ . '/../../core/Response.php';
+
+use Firebase\JWT\JWT;
 
 class CategoryController {
     private $categoryModel;

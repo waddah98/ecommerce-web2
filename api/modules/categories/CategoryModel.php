@@ -6,7 +6,7 @@ class CategoryModel {
     private $db;
 
     public function __construct() {
-        $this->db = (new Database())->getConnection();
+        $this->db = Database::connect();
     }
 
     public function createCategory($name) {
@@ -16,12 +16,12 @@ class CategoryModel {
     }
 
     public function getCategories() {
-        $stmt = $this->db->query("SELECT * FROM categories");
+        $stmt = $this->db->query("SELECT id, name FROM categories");
         return $stmt->fetchAll();
     }
 
     public function getCategoryById($id) {
-        $stmt = $this->db->prepare("SELECT * FROM categories WHERE id = :id");
+        $stmt = $this->db->prepare("SELECT id, name FROM categories WHERE id = :id");
         $stmt->execute(['id' => $id]);
         return $stmt->fetch();
     }
