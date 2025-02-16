@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { CategoriesComponent } from "../categories/categories.component";
 import { ProductsComponent } from "../products/products.component";
 import { UsersComponent } from "../users/users.component";
+import { HeaderComponent } from "../../header/header.component";
 
 @Component({
   selector: 'app-home-admin',
@@ -17,7 +18,8 @@ import { UsersComponent } from "../users/users.component";
     RouterLink,
     CategoriesComponent,
     ProductsComponent,
-    UsersComponent
+    UsersComponent,
+    HeaderComponent
 ],
   templateUrl: './home-admin.component.html',
   styleUrl: './home-admin.component.scss'
@@ -54,7 +56,7 @@ export class HomeAdminComponent implements OnInit, OnDestroy{
       link: "/admin/users",
       clicked: false,
     },
-    
+
   ];
 
   public clickedBtnStyle = {

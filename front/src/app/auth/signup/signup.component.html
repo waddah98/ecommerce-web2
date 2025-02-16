@@ -25,7 +25,10 @@
 
                 <div class="signup-button-container">
                     @if (signinup) {
-
+                      <button class="btn btn-primary" type="button" disabled>
+                        <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                        <span class="visually-hidden" role="status">Loading...</span>
+                      </button>
                     }
                     @else {
                         <button class="btn btn-primary" type="submit" [disabled]="signupForm.invalid">Signup</button>

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,10 @@ import { Observable } from 'rxjs';
 export class AuthService {
   private apiUrl = environment.api_URL+"/modules/users/userRoutes.php";
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private router:Router
+  ) { }
 
   signup(userData: { name: string, email: string, password: string, role?: string }): Observable<any> {
     const url = `${this.apiUrl}/register`;
@@ -44,6 +48,7 @@ export class AuthService {
 
   logout(): void {
     localStorage.removeItem('authToken');
+    this.router.navigate([''])
   }
 
   decryptToken():any{

@@ -8,19 +8,67 @@ import { CategoriesComponent } from './admin/categories/categories.component';
 import { AddCategoryComponent } from './admin/categories/add-category/add-category.component';
 import { AddProductComponent } from './admin/products/add-product/add-product.component';
 import { ClientComponent } from './client/client.component';
+import { AuthGuard } from './guards/auth.guard';
+import { AuthGuardLoggedIn } from './guards/auth-guard-logged-in.guard';
+import { RoleGuard } from './guards/role.guard';
 
 export const routes: Routes = [
-    {path:'', component: AuthComponent},
-    {path:'login', component: LoginComponent},
-    {path:'signup', component: SignupComponent},
+    {
+      path:'',
+      component: AuthComponent,
+      canActivate:[AuthGuard]
 
-                        /** ADMIN */ 
-    {path:'admin/home',component: HomeAdminComponent},
-    {path:'admin/products',component: ProductsComponent},
-    {path:'admin/categories',component: CategoriesComponent},
-    {path:'admin/categories/add',component: AddCategoryComponent},
-    {path:'admin/products/add',component: AddProductComponent},
+    },
+    {path:'login',
+      component: AuthComponent,
+      canActivate:[AuthGuard]
+
+    },
+    {
+      path:'signup',
+      component: AuthComponent,
+      canActivate:[AuthGuard]
+    },
+
+                        /** ADMIN */
+    {
+      path:'admin/home',
+      component: HomeAdminComponent,
+      canActivate:[AuthGuardLoggedIn, RoleGuard],
+      data: {role: 'admin'}
+    },
+    {
+      path:'admin/products',
+      component: ProductsComponent,
+      canActivate:[AuthGuardLoggedIn, RoleGuard],
+      data: {role: 'admin'}
+    },
+
+    {
+      path:'admin/categories',
+      component: CategoriesComponent,
+      canActivate:[AuthGuardLoggedIn, RoleGuard],
+      data: {role: 'admin'}
+    },
+    {
+      path:'admin/categories/add',
+      component: AddCategoryComponent,
+      canActivate:[AuthGuardLoggedIn, RoleGuard],
+      data: {role: 'admin'}
+
+    },
+    {
+      path:'admin/products/add',
+      component: AddProductComponent,
+      canActivate:[AuthGuardLoggedIn, RoleGuard],
+      data: {role: 'admin'}
+
+    },
 
                         /** CLIENT */
-    {path:'client/home',component: ClientComponent},
+    {
+      path:'client/home',
+      component: ClientComponent,
+      canActivate:[AuthGuardLoggedIn]
+    },
 ];

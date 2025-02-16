@@ -1,0 +1,37 @@
+<mat-toolbar class="admin-header" *ngIf="getRole()==='admin'">
+  <mat-toolbar-row>
+      <span>Hello Admin</span>
+      <button class="btn btn-outline-primary" (click)="logout()">
+        Logout
+        <i class="bi bi-box-arrow-right"></i>
+      </button>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-toolbar class="customer-header" *ngIf="getRole()==='customer'">
+  <mat-toolbar-row>
+      <div class="user-info-container">
+          <i class="bi bi-person-circle"></i>
+          <span>Hello --clientname--</span>
+      </div>
+
+      <div class="nav-container">
+          <button class="nav-element">
+              <i class="bi bi-house-fill"></i>
+              Home
+          </button>
+          <button class="nav-element">
+              <i class="bi bi-bookmark-star-fill"></i>
+              Favourites
+          </button>
+          <button class="nav-element">
+              <i class="bi bi-tags-fill"></i>
+              Categories
+          </button>
+          <button class="nav-element" (click)="logout()">
+            <i class="bi bi-box-arrow-right"></i>
+            Logout
+          </button>
+      </div>
+  </mat-toolbar-row>
+</mat-toolbar>

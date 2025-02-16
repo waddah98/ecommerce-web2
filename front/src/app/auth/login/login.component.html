@@ -7,9 +7,10 @@
                 <input type="password" class="form-control" formControlName="password" placeholder="Enter your password">
                 <div class="login-button-container">
                     @if (loggingIn) {
-                        <div class="spinner-border" role="status">
-                            <span class="sr-only">Loading...</span>
-                        </div>
+                      <button class="btn btn-primary" type="button" disabled>
+                        <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                        <span class="visually-hidden" role="status">Loading...</span>
+                      </button>
                     } @else {
                         <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">Login</button>
                     }

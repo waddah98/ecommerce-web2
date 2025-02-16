@@ -1,18 +1,14 @@
-<mat-toolbar>
-    <mat-toolbar-row>
-        <span>Hello Admin</span>
-    </mat-toolbar-row>
-</mat-toolbar>
+<app-header></app-header>
 
 <div class="row">
     <div class="col-4">
         @for (item of menuItems; track item) {
             <div class="buttons-container">
-                <button 
-                [id]="item.tagId" 
+                <button
+                [id]="item.tagId"
                 (click)="onNavBtnClick(item)"
                 [ngStyle]="item.clicked ? clickedBtnStyle : btnStyle">
-                    <i [classList]="item.icon"></i> 
+                    <i [classList]="item.icon"></i>
                     <div id="menu-item"> {{item.name}} </div>
                 </button>
             </div>
@@ -26,7 +22,7 @@
             <div class="card-header">
                 <h2>List of {{loadedPage}} </h2>
             </div>
-            
+
             <div class="card-body text-center">
                 @switch (loadedPage) {
                     @case ("Products") {
@@ -44,5 +40,5 @@
                 get the pagination from each component separately
             </div>
     </div>
-    
+
 </div>
