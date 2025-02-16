@@ -1,0 +1,237 @@
+{
+	"info": {
+		"_postman_id": "4165a4d4-3031-45b4-ad30-4dba98bf499e",
+		"name": "ecommerce-web2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28440178"
+	},
+	"item": [
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "Auth",
+					"item": [
+						{
+							"name": "Signup",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"admin\",\r\n  \"email\": \"admin@gmail.com\",\r\n  \"password\": \"12345678\",\r\n  \"role\": \"admin\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost/ecommerce-web2/api/modules/users/userRoutes.php/register",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"ecommerce-web2",
+										"api",
+										"modules",
+										"users",
+										"userRoutes.php",
+										"register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "signin",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\":\"admin@gmail.com\",\r\n    \"password\":\"12345678\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost/ecommerce-web2/api/modules/users/userRoutes.php/signin",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"ecommerce-web2",
+										"api",
+										"modules",
+										"users",
+										"userRoutes.php",
+										"signin"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Categories",
+					"item": [
+						{
+							"name": "addCategory",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\":\"Sports\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost/ecommerce-web2/api/modules/categories/categoryRoutes.php/addCategory",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"ecommerce-web2",
+										"api",
+										"modules",
+										"categories",
+										"categoryRoutes.php",
+										"addCategory"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "fetchAllCategories",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "page",
+											"value": "1",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "perPage",
+											"value": "5",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost/ecommerce-web2/api/modules/categories/categoryRoutes.php/fetchAll",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"ecommerce-web2",
+										"api",
+										"modules",
+										"categories",
+										"categoryRoutes.php",
+										"fetchAll"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "fetchById",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost/ecommerce-web2/api/modules/categories/categoryRoutes.php/fetchById/2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"ecommerce-web2",
+										"api",
+										"modules",
+										"categories",
+										"categoryRoutes.php",
+										"fetchById",
+										"2"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "getAllUsers",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjciLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTczOTc5NjMyMX0.IWFOdze-hXU3-7r5Vxro5aiPwczklWhodPkUeX5bZSw\"",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost/ecommerce-web2/api/modules/users/userRoutes.php/fetchAllUsers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"ecommerce-web2",
+								"api",
+								"modules",
+								"users",
+								"userRoutes.php",
+								"fetchAllUsers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
