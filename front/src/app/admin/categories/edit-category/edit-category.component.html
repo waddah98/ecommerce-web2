@@ -3,18 +3,14 @@
 </div>
 
 <mat-dialog-content>
-    <form [formGroup]="editCategoryForm" (ngSubmit)="editCategory()">
+    <form [formGroup]="editCategoryForm">
         <div>
             <label class="form-label">Label</label>
-            <input formControlName="label" type="text" class="form-control">
-        </div>
-        <div>
-            <label class="form-label">Description</label>
-            <textarea formControlName="description" cols="5" rows="3" class="form-control"></textarea>
+            <input formControlName="name" type="text" class="form-control">
         </div>
         <mat-dialog-actions align="end">
             <button class="btn btn-danger" mat-dialog-close>Close</button>
-            <button class="btn btn-success" [mat-dialog-close]="true">Edit</button>
+            <button class="btn btn-success"  (click)="editCategory()" [mat-dialog-close]="true" [disabled]="!editCategoryForm.value">Edit</button>
         </mat-dialog-actions>
     </form>
 </mat-dialog-content>

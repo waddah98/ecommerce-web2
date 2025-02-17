@@ -16,12 +16,18 @@ import { CategoriesService } from '../../../services/categories.service';
   styleUrl: './add-category.component.scss'
 })
 export class AddCategoryComponent implements OnInit{
-    constructor(private categoriesService: CategoriesService){}
-  
-  
+    constructor(
+      private categoriesService: CategoriesService,
+      dialogRef: MatDialogRef<AddCategoryComponent>,
+
+    ){
+      this.dialog = dialogRef;
+    }
+
+
   addCategoryForm !: FormGroup;
   private dialog!: MatDialogRef<AddCategoryComponent>;
-  
+
   ngOnInit(): void {
 
     this.addCategoryForm = new FormGroup({
@@ -35,23 +41,25 @@ export class AddCategoryComponent implements OnInit{
     if (this.addCategoryForm.invalid) {
       return;
     }
-    const formData = new FormData();
-    formData.append('name', this.addCategoryForm.get('name')?.value);
 
-    this.categoriesService.addCategory(formData).subscribe({
+    this.categoriesService.addCategory(this.addCategoryForm.value).subscribe({
       next: (response) => {
         alert('Category added successfully!');
-        this.closeDialog();
+        this.addCategoryForm.reset();
+        this.dialog.close();
       },
       error: (err) => {
         alert('Failed to add category.');
       },
+      complete: ()=>{
+        this.dialog.close();
+        this.addCategoryForm.reset();
+      }
     })
   }
 
   closeDialog(){
-    this.addCategoryForm.reset();
-    this.dialog.close();
+
   }
 
 }

@@ -17,16 +17,19 @@ export class DeleteCategoryComponent {
 
   @Input() categoryId !: number;
   private dialog !: MatDialogRef<DeleteCategoryComponent>;
-  
+
   deleteCategory(){
     this.categoriesService.deleteCategory(this.categoryId).subscribe({
       next: (response) => {
         alert('Category deleted successfully!');
-        this.closeDialog();
+        this.dialog.close();
       },
       error: (err) => {
         alert('Failed to delete category.');
       },
+      complete: ()=>{
+        this.dialog.close();
+      }
     })
   }
 

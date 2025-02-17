@@ -18,10 +18,9 @@ class CategoryModel {
 
     public function getCategories($page = 1, $perPage = 5) {
         $offset = ($page - 1) * $perPage;
-        $query = "SELECT id, name FROM categories LIMIT :limit OFFSET :offset";
+        $query = "SELECT id, name FROM categories";
         $stmt = $this->db->prepare($query);
-        $stmt->bindValue(':limit', $perPage, PDO::PARAM_INT);
-        $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+        
         $stmt->execute();
         $categories = $stmt->fetchAll();
 

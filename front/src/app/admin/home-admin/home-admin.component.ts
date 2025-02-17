@@ -7,6 +7,7 @@ import { CategoriesComponent } from "../categories/categories.component";
 import { ProductsComponent } from "../products/products.component";
 import { UsersComponent } from "../users/users.component";
 import { HeaderComponent } from "../../header/header.component";
+import { CategoriesService } from '../../services/categories.service';
 
 @Component({
   selector: 'app-home-admin',
@@ -25,6 +26,14 @@ import { HeaderComponent } from "../../header/header.component";
   styleUrl: './home-admin.component.scss'
 })
 export class HomeAdminComponent implements OnInit, OnDestroy{
+  fetching: boolean = false;
+  categoriesData: any;
+
+  currentPage: number = 1;
+  totalPages: number = 0;
+  constructor(
+    private categoriesService: CategoriesService,
+  ){}
   ngOnInit(): void {
     // this.loadedPage = "Categories";
   }
@@ -85,8 +94,34 @@ export class HomeAdminComponent implements OnInit, OnDestroy{
       item.clicked = false;
     });
     item.clicked = true;
-    console.log("🚀 ~ HomeAdminComponent ~ onNavBtnClick ~ this.loadedPage:", this.loadedPage);
     return this.loadedPage;
   }
+
+  loadCategories(page:number){
+    this.fetching = true;
+    this.categoriesService.getAllCategories().subscribe({
+      next: (res:any)=>{
+        this.categoriesData = res.categories;
+        this.totalPages = res.pagination.total;
+
+      },
+      error: (err:any)=>{
+        this.fetching = false;
+      },
+      complete: ()=>{
+        this.fetching = false;
+      },
+    })
+  }
+
+  // createRange(totalPages:number): number[] {
+  //   return Array.from({length: totalPages}, (_, i) => i + 1);
+  // }
+
+  // changePage(page: number) {
+  //   if (page >= 1 && page <= this.totalPages) {
+  //     this.loadCategories(page);
+  //   }
+  // }
 
 }
