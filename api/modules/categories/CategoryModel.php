@@ -2,6 +2,7 @@
 
 require_once __DIR__ . '/../../core/Database.php';
 
+
 class CategoryModel {
     private $db;
 
@@ -15,9 +16,30 @@ class CategoryModel {
         return $stmt->execute(['name' => $name]);
     }
 
-    public function getCategories() {
-        $stmt = $this->db->query("SELECT id, name FROM categories");
-        return $stmt->fetchAll();
+    public function getCategories($page = 1, $perPage = 5) {
+        $offset = ($page - 1) * $perPage;
+        $query = "SELECT id, name FROM categories LIMIT :limit OFFSET :offset";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindValue(':limit', $perPage, PDO::PARAM_INT);
+        $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+        $stmt->execute();
+        $categories = $stmt->fetchAll();
+
+        $totalQuery = "SELECT COUNT(*) as total FROM categories";
+        $totalStmt = $this->db->query($totalQuery);
+        $total = $totalStmt->fetch()['total'];
+
+        $totalPages = ceil($total / $perPage);
+
+        return Response::json([
+            'categories' => $categories,
+            'pagination' => [
+                'total' => $total,
+                'per_page' => $perPage,
+                'current_page' => $page,
+                'total_pages' => $totalPages,
+            ],
+        ]);
     }
 
     public function getCategoryById($id) {

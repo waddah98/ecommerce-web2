@@ -19,7 +19,7 @@ export class CategoriesComponent implements OnInit{
   constructor(private categoriesService:CategoriesService){}
 
   ngOnInit(): void {
-    this.loadCategories(this.currentPage);
+    this.loadCategories();
   }
 ;
   fetching : boolean = false;
@@ -29,12 +29,14 @@ export class CategoriesComponent implements OnInit{
   currentPage : number = 1;
   totalPages: number = 0;
 
-  loadCategories(page:number){
+  loadCategories(){
     this.fetching = true;
     this.categoriesService.getAllCategories().subscribe({
       next: (res:any)=>{
+        console.log("🚀 ~ CategoriesComponent ~ this.categoriesService.getAllCategories ~ res:", res);
         this.categoriesData = res.categories;
         this.totalPages = res.pagination.total;
+        
       },
       error: (err:any)=>{
         console.log("🚀 ~ CategoriesComponent ~ this.categoriesService.getAllCategories ~ err:", err.error)

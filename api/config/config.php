@@ -9,7 +9,7 @@ return [
     ],
     
     'database' => [
-        'host' => 'localhost',
+        'host' => '127.0.0.1',
         'port' => 3306,
         'dbname' => 'bookstore',
         'username' => 'root',
@@ -21,5 +21,6 @@ return [
         'path' => __DIR__ . '/../uploads/',
         'allowed_types' => ['image/jpeg', 'image/png'],
         'max_size' => 5 * 1024 * 1024,
-    ]
-];
+        ]
+    ];
+    

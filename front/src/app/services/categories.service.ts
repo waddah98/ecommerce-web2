@@ -6,7 +6,7 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class CategoriesService {
-    private apiUrl = environment.api_URL + "modules/categories/categoryRoutes.php";
+    private apiUrl = environment.api_URL + "/modules/categories/categoryRoutes.php";
 
   constructor(private http: HttpClient) {}
 

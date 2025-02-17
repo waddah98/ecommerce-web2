@@ -25,8 +25,7 @@ export class AddCategoryComponent implements OnInit{
   ngOnInit(): void {
 
     this.addCategoryForm = new FormGroup({
-      label: new FormControl('', [Validators.required]),
-      description: new FormControl('', [Validators.required]),
+      name: new FormControl('', [Validators.required]),
     });
 
 
@@ -37,8 +36,7 @@ export class AddCategoryComponent implements OnInit{
       return;
     }
     const formData = new FormData();
-    formData.append('label', this.addCategoryForm.get('label')?.value);
-    formData.append('description', this.addCategoryForm.get('description')?.value);
+    formData.append('name', this.addCategoryForm.get('name')?.value);
 
     this.categoriesService.addCategory(formData).subscribe({
       next: (response) => {

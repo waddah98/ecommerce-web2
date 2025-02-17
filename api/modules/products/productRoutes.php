@@ -1,5 +1,8 @@
 <?php
 require_once __DIR__ . "/ProductController.php";
+require_once __DIR__ . '/../../core/CorsMiddleware.php';
+
+handleCors();
 
 $controller = new ProductController();
 
