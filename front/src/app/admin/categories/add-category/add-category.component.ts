@@ -18,7 +18,7 @@ import { CategoriesService } from '../../../services/categories.service';
 export class AddCategoryComponent implements OnInit{
     constructor(
       private categoriesService: CategoriesService,
-      dialogRef: MatDialogRef<AddCategoryComponent>,
+      private dialogRef: MatDialogRef<AddCategoryComponent>,
 
     ){
       this.dialog = dialogRef;
@@ -29,12 +29,9 @@ export class AddCategoryComponent implements OnInit{
   private dialog!: MatDialogRef<AddCategoryComponent>;
 
   ngOnInit(): void {
-
     this.addCategoryForm = new FormGroup({
       name: new FormControl('', [Validators.required]),
     });
-
-
   }
 
   addCategory(){

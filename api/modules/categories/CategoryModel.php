@@ -22,11 +22,11 @@ class CategoryModel {
         $stmt = $this->db->prepare($query);
         
         $stmt->execute();
-        $categories = $stmt->fetchAll();
+        $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         $totalQuery = "SELECT COUNT(*) as total FROM categories";
         $totalStmt = $this->db->query($totalQuery);
-        $total = $totalStmt->fetch()['total'];
+        $total = $totalStmt->fetch(PDO::FETCH_ASSOC)['total'];
 
         $totalPages = ceil($total / $perPage);
 
@@ -44,7 +44,7 @@ class CategoryModel {
     public function getCategoryById($id) {
         $stmt = $this->db->prepare("SELECT id, name FROM categories WHERE id = :id");
         $stmt->execute(['id' => $id]);
-        return $stmt->fetch();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
     public function updateCategory($id, $name) {

@@ -1,4 +1,5 @@
-import { Component, inject } from '@angular/core';
+import { ProductService } from './../../services/product.service';
+import { Component, inject, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AddProductComponent } from './add-product/add-product.component';
 import { EditProductComponent } from './edit-product/edit-product.component';
@@ -12,29 +13,24 @@ import { DeleteProductComponent } from './delete-product/delete-product.componen
   templateUrl: './products.component.html',
   styleUrl: './products.component.scss'
 })
-export class ProductsComponent {
-  productsData:any = [
-    {
-      image:"https://loremflickr.com/640/480?lock=3635778403958784",		
-      category:"Concrete",		
-      label:"Generic Soft Car",		
-      price:"588.00"
-    },
-    {
-      image:"https://loremflickr.com/640/480?lock=623936706445312",		
-      category:"Wooden",		
-      label:"Luxurious Soft Bike",		
-      price:"33.00"
-    },
-    {
-      image:"https://loremflickr.com/640/480?lock=2539282191351808",		
-      category:"Steel",		
-      label:"Luxurious Plastic Fish",		
-      price:"456.00"
-    },
-  ]
+export class ProductsComponent implements OnInit {
+  constructor(private productService:ProductService) { }
+  productsData:any;
 
-  columnNames = Object.keys(this.productsData[0]);
+  ngOnInit(): void {
+    this.loadProducts();
+  }
+
+  loadProducts(){
+    this.productService.getAllProducts().subscribe({
+      next: (data) => {
+        this.productsData = data;
+      },
+      error: (error) => {console.log(error);},
+      complete: () => {console.log('completed');}
+    })
+  };
+
 
   readonly dialog = inject(MatDialog);
   openAddDialog(){

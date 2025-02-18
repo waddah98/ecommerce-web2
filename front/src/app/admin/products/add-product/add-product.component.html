@@ -3,7 +3,7 @@
 </div>
 
 <mat-dialog-content>
-    <form [formGroup]="addProductForm" (ngSubmit)="addProduct()">
+    <form [formGroup]="addProductForm">
         <div class="imgUpload">
             <label class="form-label">Cover Image</label>
             <div class="file-drop-area" (click)="fileInput.click()">
@@ -12,6 +12,7 @@
                     type="file"
                     (change)="onFileSelect($event)"
                     #fileInput
+                    formControlName="image"
                     hidden/>
             </div>
         </div>
@@ -20,33 +21,46 @@
                 <img [src]="previewUrl" alt="Preview" class="preview-image">
             </div>
         </div>
-        
+
         <div>
-            <label class="form-label">ISBN</label>
-            <input formControlName="isbn" class="form-control">
+            <label class="form-label">Category</label>
+            <select formControlName="category_id" class="form-select">
+              <option *ngFor="let item of categoriesData" [value]="item.id">
+                {{item.name}}
+              </option>
+            </select>
         </div>
         <div>
             <label class="form-label">Title</label>
             <input formControlName="title" class="form-control">
         </div>
         <div>
+            <label class="form-label">Author</label>
+            <input formControlName="author" class="form-control">
+        </div>
+        <div>
+            <label class="form-label">Year Of Publication</label>
+            <input formControlName="published_year" class="form-control" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+        </div>
+        <div>
             <label class="form-label">Description</label>
             <input formControlName="description" class="form-control">
         </div>
         <div>
-            <label class="form-label">Category</label>
-            <input formControlName="category" class="form-control">
+          <label for="" class="form-label">Stock</label>
+          <input formControlName="quantity" class="form-control" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
         </div>
-        <div>
+        <div class="input-group">
             <label class="form-label">Price</label>
             <input formControlName="price" class="form-control" (input)="onInputChange($event)"
             (keypress)="onKeyPress($event)">
+            <span class="input-group-text" id="basic-addon1">$</span>
         </div>
         <mat-dialog-actions align="end">
             <button class="btn btn-danger" mat-dialog-close>Close</button>
-            <button class="btn btn-success" type="submit" [disabled]="!addProductForm.valid">Add</button>
+            <button class="btn btn-success" type="submit" (click)="addProduct()" [disabled]="!addProductForm.valid">Add</button>
         </mat-dialog-actions>
     </form>
-    
+
 </mat-dialog-content>
 

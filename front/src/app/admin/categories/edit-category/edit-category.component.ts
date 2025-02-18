@@ -22,7 +22,12 @@ export class EditCategoryComponent implements OnInit{
   currentPage: number = 1;
   totalPages: number=0;
 
-  constructor(private categoriesService: CategoriesService){}
+  constructor(
+    private categoriesService: CategoriesService,
+    private dialogRef:MatDialogRef<EditCategoryComponent>,
+  ){
+    this.dialog = dialogRef;
+  }
 
   @Input() categoryId !: number;
   editCategoryForm !: FormGroup;

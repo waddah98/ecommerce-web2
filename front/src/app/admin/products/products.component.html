@@ -10,8 +10,12 @@
         <tr>
             <th>Cover Image</th>
             <th>Category</th>
-            <th>Label</th>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Year Of Publication</th>
+            <th>Description</th>
             <th>Price</th>
+            <th>Stock</th>
             <th>Actions</th>
         </tr>
         <!-- <tr class="text-center align-middle">
@@ -37,16 +41,20 @@
     <tbody>
         @for (item of productsData; track $index) {
             <tr class="text-center align-middle">
-                <td> 
+                <td>
                     <img [src]="item.image" alt="" width="100px">
                 </td>
                 <td>
-                    <button type="button" class="btn btn-outline-primary">
-                        {{item.category}} 
-                    </button>
+                  <button type="button" class="btn btn-outline-primary">
+                      {{item.category_name}}
+                  </button>
                 </td>
-                <td> {{item.label}} </td>
-                <td> {{item.price}} TND </td>
+                <td> {{item.title}} </td>
+                <td> {{item.author}}</td>
+                <td> {{item.published_year}} </td>
+                <td> {{item.description}} </td>
+                <td> {{item.price}} $</td>
+                <td> {{item.stock}} </td>
                 <td >
                     <div class="buttons-container" role="group">
                         <button class="btn btn-primary" (click)="openEditDialog(item.id)">

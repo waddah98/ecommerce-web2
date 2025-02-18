@@ -25,7 +25,7 @@ class UserModel {
     public function getUserByEmail($email) {
         $stmt = $this->db->prepare("SELECT id, name, email, password, role FROM users WHERE email = :email");
         $stmt->execute(['email' => $email]);
-        return $stmt->fetch();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
     public function getAllUsers($page = 1, $perPage = 5) {
@@ -35,7 +35,7 @@ class UserModel {
         $stmt->bindValue(':limit', $perPage, PDO::PARAM_INT);
         $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
         $stmt->execute();
-        $users = $stmt->fetchAll();
+        $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
         
 
         $totalQuery = "SELECT COUNT(*) as total FROM users";
@@ -58,6 +58,6 @@ class UserModel {
     public function getUserById($id) {
         $stmt = $this->db->prepare("SELECT id, name, email, role FROM users WHERE id = :id");
         $stmt->execute(['id' => $id]);
-        return $stmt->fetch();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 }

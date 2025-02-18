@@ -13,7 +13,12 @@ import { CategoriesService } from '../../../services/categories.service';
 })
 export class DeleteCategoryComponent {
 
-  constructor(private categoriesService:CategoriesService){}
+  constructor(
+    private categoriesService:CategoriesService,
+    private dialogRef: MatDialogRef<DeleteCategoryComponent>,
+  ){
+    this.dialog = dialogRef;
+  }
 
   @Input() categoryId !: number;
   private dialog !: MatDialogRef<DeleteCategoryComponent>;
