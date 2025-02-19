@@ -37,7 +37,19 @@ if (end($path) === 'fetchAllUsers') {
     $controller->register();
 } elseif (end($path) === 'signin' && $requestMethod === 'POST') { 
     $controller->signin();
-} else {
+} // Add this route to your existing routes
+elseif (end($path) === 'addToFavorites' && $requestMethod === 'POST') {
+    // AuthMiddleware::authenticate(); // Ensure the user is authenticated
+    $controller->addToFavorites();
+}elseif (end($path) === 'getFavorites' && $requestMethod === 'GET') {
+    if (!isset($_GET['user_id'])) {
+        Response::json(["message" => "Missing user_id"], 400);
+    } else {
+        $controller->getFavorites($_GET['user_id']);
+    }
+}
+
+else {
     http_response_code(404);
     echo json_encode(["message" => "Route not found"]);
 }

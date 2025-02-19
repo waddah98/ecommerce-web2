@@ -25,7 +25,7 @@
           @for (item of productsData; track $index) {
               <tr class="text-center align-middle">
                   <td>
-                      <img [src]="item.image" alt="" width="100px">
+                      <img [src]="'data:image/jpg;base64,' +item.image" alt="" width="100px">
                   </td>
                   <td>{{item.isbn}}</td>
                   <td>

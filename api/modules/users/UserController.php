@@ -81,4 +81,42 @@ class UserController {
             Response::json(["error" => "User not found"], 404);
         }
     }
+
+    public function addToFavorites() {
+        $input = json_decode(file_get_contents("php://input"), true);
+    
+        // Check if the required fields are present
+        if (!isset($input['user_id'], $input['product_id'])) {
+            Response::json(["message" => "Missing required fields (user_id and product_id)"], 400);
+            return;
+        }
+    
+        $user_id = $input['user_id'];
+        $product_id = $input['product_id'];
+    
+        // Check if the product is already in the user's favorites
+        $existingFavorite = $this->userModel->getFavorite($user_id, $product_id);
+        if ($existingFavorite) {
+            Response::json(["message" => "Product is already in favorites"], 400);
+            return;
+        }
+    
+        // Add the product to the user's favorites
+        if ($this->userModel->addFavorite($user_id, $product_id)) {
+            Response::json(["message" => "Product added to favorites successfully"], 201);
+        } else {
+            Response::json(["message" => "Failed to add product to favorites"], 500);
+        }
+    }
+
+    public function getFavorites($user_id) {
+        $favorites = $this->userModel->getAllFavorites($user_id);
+        
+        if ($favorites) {
+            Response::json($favorites);
+        } else {
+            Response::json(["message" => "No favorites found"], 404);
+        }
+    }
+    
 }

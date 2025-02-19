@@ -63,4 +63,29 @@ class UserModel {
         $stmt->execute(['id' => $id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
+    public function getAllFavorites($user_id) {
+        $query = "
+            SELECT p.id, p.title, p.author, p.price, p.image
+            FROM favourites f
+            JOIN products p ON f.product_id = p.id
+            WHERE f.user_id = :user_id
+        ";
+        
+        $stmt = $this->db->prepare($query);
+        $stmt->execute(['user_id' => $user_id]);
+        
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    
+    
+    
+    
+    public function addFavorite($user_id, $product_id) {
+        $sql = "INSERT INTO favourites (user_id, product_id) VALUES (:user_id, :product_id)";
+        $stmt = $this->db->prepare($sql);
+        return $stmt->execute(['user_id' => $user_id, 'product_id' => $product_id]);
+    }
+
+
 }
