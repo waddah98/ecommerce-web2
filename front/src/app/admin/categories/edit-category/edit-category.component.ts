@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { CategoriesService } from '../../../services/categories.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-edit-category',
@@ -11,6 +12,7 @@ import { CategoriesService } from '../../../services/categories.service';
     ReactiveFormsModule,
     FormsModule,
   ],
+  providers:[MessageService],
   templateUrl: './edit-category.component.html',
   styleUrl: './edit-category.component.scss'
 })

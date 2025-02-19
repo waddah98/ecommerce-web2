@@ -1,13 +1,14 @@
 import { Component, Input } from '@angular/core';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { CategoriesService } from '../../../services/categories.service';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-delete-category',
   standalone: true,
-  imports: [
-    MatDialogModule,
-  ],
+  imports: [MatDialogModule,],
+  providers:[MessageService],
   templateUrl: './delete-category.component.html',
   styleUrl: './delete-category.component.scss'
 })
@@ -16,6 +17,7 @@ export class DeleteCategoryComponent {
   constructor(
     private categoriesService:CategoriesService,
     private dialogRef: MatDialogRef<DeleteCategoryComponent>,
+    private messageService: MessageService
   ){
     this.dialog = dialogRef;
   }
@@ -26,11 +28,12 @@ export class DeleteCategoryComponent {
   deleteCategory(){
     this.categoriesService.deleteCategory(this.categoryId).subscribe({
       next: (response) => {
-        alert('Category deleted successfully!');
+        this.messageService.add({severity:'success', summary:'Success', detail:'Category deleted successfully!'});
         this.dialog.close();
+
       },
       error: (err) => {
-        alert('Failed to delete category.');
+        this.messageService.add({severity:'error', summary:'Error', detail:'Failed to delete category.'});
       },
       complete: ()=>{
         this.dialog.close();

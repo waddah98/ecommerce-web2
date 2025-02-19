@@ -4,6 +4,9 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { ReactiveFormsModule, FormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
+
 
 @Component({
   selector: 'app-edit-product',
@@ -13,7 +16,9 @@ import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
     MatDialogModule,
     ReactiveFormsModule,
     FormsModule,
+    ToastModule
   ],
+  providers:[MessageService],
   templateUrl: './edit-product.component.html',
   styleUrl: './edit-product.component.scss'
 })
@@ -21,7 +26,8 @@ export class EditProductComponent implements OnInit{
   constructor(
     private productService: ProductService,
     private categoriesService: CategoriesService,
-    private dialogRef:MatDialogRef<EditProductComponent>
+    private dialogRef:MatDialogRef<EditProductComponent>,
+    private messageService: MessageService
   ){
     this.dialog = dialogRef;
   }
@@ -38,6 +44,7 @@ export class EditProductComponent implements OnInit{
 
   ngOnInit(): void{
     this.editProductForm = new FormGroup({
+      isbn: new FormControl('', [Validators.required]),
       title: new FormControl('', [Validators.required]),
       author: new FormControl('', [Validators.required]),
       description: new FormControl('', [Validators.required]),
@@ -46,7 +53,9 @@ export class EditProductComponent implements OnInit{
       quantity: new FormControl('', [Validators.required]),
       image: new FormControl('', [Validators.required]),
       category_id: new FormControl('', [Validators.required]),
-    })
+    });
+    this.loadCategories();
+    this.fetchProductById();
   }
 
   onInputChange(event: Event): void {
@@ -62,7 +71,6 @@ export class EditProductComponent implements OnInit{
     }
     return true;
   }
-
 
   onFileSelect(event: Event): void {
     const input = event.target as HTMLInputElement;
@@ -92,7 +100,7 @@ export class EditProductComponent implements OnInit{
 
   editProduct(){
     if (this.editProductForm.invalid) {
-      alert('Please fill all required fields');
+      this.messageService.add({severity: 'error', summary: 'Error', detail: 'Please fill all required fields',});
       return;
     }
 
@@ -107,18 +115,32 @@ export class EditProductComponent implements OnInit{
     formData.append('price', this.editProductForm.get('price')?.value);
     formData.append('quantity', this.editProductForm.get('quantity')?.value);
     formData.append('category_id', this.editProductForm.get('category_id')?.value);
+
+    this.productService.updateProduct(this.productId, formData).subscribe({
+      next: (res) => {
+        this.messageService.add({severity: 'success', summary: 'Success', detail: 'Product updated successfully',});
+        this.dialog.close();
+      },
+      error: (err) => {
+        this.messageService.add({severity: 'error', summary: 'Error', detail: 'An error occurred. Please try again later.',});
+      },
+      complete: () => {
+      }
+    });
   }
 
   fetchProductById(){
     this.productService.getProductById(this.productId).subscribe({
       next: (data) => {
-        this.editProductForm.get('title')?.setValue(data.title);
-        this.editProductForm.get('author')?.setValue(data.author);
-        this.editProductForm.get('description')?.setValue(data.description);
-        this.editProductForm.get('published_year')?.setValue(data.published_year);
-        this.editProductForm.get('price')?.setValue(data.price);
-        this.editProductForm.get('quantity')?.setValue(data.quantity);
-        this.editProductForm.get('category_id')?.setValue(data.category_id);
+        this.editProductForm.patchValue({
+          title: data.title,
+          author: data.author,
+          description: data.description,
+          published_year: data.published_year,
+          price: data.price,
+          quantity: data.quantity,
+          category_id: data.category_id,
+        });
       },
       error: (error) => {
         console.log(error);

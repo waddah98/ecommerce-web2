@@ -31,6 +31,10 @@
             </select>
         </div>
         <div>
+            <label class="form-label">ISBN</label>
+            <input formControlName="isbn" class="form-control" (input)="onInputChange($event)"
+            (keypress)="onKeyPress($event)">
+
             <label class="form-label">Title</label>
             <input formControlName="title" class="form-control">
         </div>
@@ -50,13 +54,10 @@
           <label for="" class="form-label">Stock</label>
           <input formControlName="quantity" class="form-control" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
         </div>
-        <div class="input-group">
             <label class="form-label">Price</label>
             <input formControlName="price" class="form-control" (input)="onInputChange($event)"
             (keypress)="onKeyPress($event)">
-            <span class="input-group-text" id="basic-addon1">$</span>
-        </div>
-        <mat-dialog-actions align="end">
+edit        <mat-dialog-actions align="end">
             <button class="btn btn-danger" mat-dialog-close>Close</button>
             <button class="btn btn-success" type="submit" (click)="addProduct()" [disabled]="!addProductForm.valid">Add</button>
         </mat-dialog-actions>

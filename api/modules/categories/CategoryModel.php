@@ -18,12 +18,18 @@ class CategoryModel {
 
     public function getCategories($page = 1, $perPage = 5) {
         $offset = ($page - 1) * $perPage;
-        $query = "SELECT id, name FROM categories";
+        $query = "
+        SELECT c.id, c.name, COUNT(p.id) as numberOfBooks 
+        FROM categories c
+        LEFT JOIN products p ON c.id = p.category_id
+        GROUP BY c.id
+
+        ";
         $stmt = $this->db->prepare($query);
-        
         $stmt->execute();
         $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+        //pagination queries
         $totalQuery = "SELECT COUNT(*) as total FROM categories";
         $totalStmt = $this->db->query($totalQuery);
         $total = $totalStmt->fetch(PDO::FETCH_ASSOC)['total'];

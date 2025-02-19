@@ -43,7 +43,7 @@ class Database {
                 id INT AUTO_INCREMENT PRIMARY KEY,
                 name VARCHAR(255) NOT NULL,
                 email VARCHAR(255) UNIQUE NOT NULL,
-                password VARCHAR(255) NOT NULL,
+                password VARCHAR(255) NOT NULL DEFAULT '12345678',
                 role ENUM('admin', 'customer') NOT NULL DEFAULT 'customer',
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )",
@@ -55,6 +55,7 @@ class Database {
 
             "CREATE TABLE IF NOT EXISTS products (
                 id INT AUTO_INCREMENT PRIMARY KEY,
+                isbn VARCHAR(13) UNIQUE,
                 title VARCHAR(255) NOT NULL,
                 author VARCHAR(255) NOT NULL,
                 published_year INT,
@@ -62,9 +63,18 @@ class Database {
                 price DECIMAL(10,2) NOT NULL,
                 quantity INT NOT NULL DEFAULT 0,
                 category_id INT,
-                image VARCHAR(255),
+                image LONGBLOB,
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE SET NULL
+            )",
+            "CREATE TABLE IF NOT EXISTS favourites (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                user_id INT NOT NULL,
+                product_id INT NOT NULL,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+                FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE,
+                UNIQUE (user_id, product_id)
             )"
         ];
 

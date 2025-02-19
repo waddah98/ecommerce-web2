@@ -28,31 +28,34 @@ class UserModel {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function getAllUsers($page = 1, $perPage = 5) {
-        $offset = ($page - 1) * $perPage;
-        $query = "SELECT name, email, role, created_at FROM users LIMIT :limit OFFSET :offset";
+    public function getAllUsers() {
+        $query = "
+        SELECT 
+            u.id, 
+            u.name, 
+            u.email, 
+            u.role, 
+            u.created_at, 
+            COUNT(f.id) AS numberOfFavourites 
+        FROM 
+            users u 
+        LEFT JOIN 
+            favourites f ON u.id = f.user_id 
+        WHERE 
+            u.role = 'customer' 
+        GROUP BY 
+            u.id
+        ";
         $stmt = $this->db->prepare($query);
-        $stmt->bindValue(':limit', $perPage, PDO::PARAM_INT);
-        $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
         $stmt->execute();
         $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        
 
-        $totalQuery = "SELECT COUNT(*) as total FROM users";
+        $totalQuery = "SELECT COUNT(*) as total FROM users WHERE role = 'customer'";
         $totalStmt = $this->db->query($totalQuery);
-        $total = $totalStmt->fetch()['total'];
+        $totalFavourites = $totalStmt->fetch()['total'];
 
-        $totalPages = ceil($total / $perPage);
 
-        return Response::json([
-            'users' => $users,
-            'pagination' => [
-                'total' => $total,
-                'per_page' => $perPage,
-                'current_page' => $page,
-                'total_pages' => $totalPages,
-            ],
-        ]);
+        return Response::json($users);
     }
 
     public function getUserById($id) {

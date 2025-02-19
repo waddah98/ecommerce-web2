@@ -3,39 +3,16 @@
         <tr>
             <th>
                 Full Name
-                <!-- <div class="d-flex justify-content-center">
-                    <input class="form-control w-auto" id="nameFilter">
-                </div> -->
             </th>
             <th>
                 Email
-                <!-- <div class="d-flex justify-content-center">
-                    <input class="form-control w-auto" id="emailFilter">
-                </div> -->
             </th>
-            <th>
-                Phone Number
-                <!-- <div class="d-flex justify-content-center">
-                    <input class="form-control w-auto" id="phoneNumberFilter">
-                </div> -->
-            </th>
+
             <th>
                 Number Of Favourite Products
-                <!-- <div class="d-flex justify-content-center">
-                    <input class="form-control w-auto" id="numberOfFavouritesFilter">
-                </div> -->
             </th>
             <th>
                 Registration Date
-                <!-- <div class="single-filter-container" id="dateFilter">
-                    <span>From</span>
-                    <input type="date" class="form-control w-auto">
-                </div>
-                <div class="single-filter-container">
-                    <span>To</span>
-                    <input type="date" class="form-control w-auto">
-                </div> -->
-
             </th>
         </tr>
     </thead>
@@ -44,13 +21,12 @@
             <tr class="text-center align-middle">
                 <td> {{item.name}} </td>
                 <td> {{item.email}} </td>
-                <td> {{item.phoneNumber}} </td>
                 <td>
                     <button type="button" class="btn btn-outline-primary">
                         {{item.numberOfFavourites}}
                     </button>
                 </td>
-                <td> {{item.registrationDate}} </td>
+                <td> {{ formatDate(item.created_at) }}  </td>
             </tr>
         }
     </tbody>

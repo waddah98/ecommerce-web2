@@ -4,7 +4,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { ProductService } from '../../../services/product.service';
-import { title } from 'process';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
+
+
 @Component({
   selector: 'app-add-product',
   standalone: true,
@@ -13,8 +16,10 @@ import { title } from 'process';
     MatDialogModule,
     FormsModule,
     ReactiveFormsModule,
+    ToastModule,
 
   ],
+  providers:[MessageService],
   templateUrl: './add-product.component.html',
   styleUrl: './add-product.component.scss'
 })
@@ -23,6 +28,7 @@ export class AddProductComponent implements OnInit{
     private productService: ProductService,
     private categoriesService:CategoriesService,
     private dialogRef: MatDialogRef<AddProductComponent>,
+    private messageService: MessageService
   ){
     this.dialog = dialogRef;
   }
@@ -36,6 +42,7 @@ export class AddProductComponent implements OnInit{
 
   ngOnInit(): void {
     this.addProductForm = new FormGroup({
+      isbn: new FormControl('', [Validators.required]),
       image: new FormControl('', [Validators.required]),
       category_id: new FormControl('', [Validators.required]),
       title: new FormControl('', [Validators.required]),
@@ -70,7 +77,7 @@ export class AddProductComponent implements OnInit{
     // Validate file type (e.g., allow only images)
     const allowedTypes = ['image/jpeg', 'image/png'];
     if (!allowedTypes.includes(file.type)) {
-      alert('Only JPEG, PNG, and GIF files are allowed.');
+      this.messageService.add({severity: 'error', summary: 'Error', detail: 'Only JPEG, PNG, and GIF files are allowed.',});
       return;
     }
 
@@ -90,7 +97,7 @@ export class AddProductComponent implements OnInit{
 
   addProduct(){
     if (this.addProductForm.invalid) {
-      alert('Please fill all required fields');
+      this.messageService.add({severity: 'error', summary: 'Error', detail: 'Please fill all required fields',});
       return;
     };
 
@@ -98,6 +105,7 @@ export class AddProductComponent implements OnInit{
     if (this.selectedFile) {
       formData.append('image', this.selectedFile);
     }
+    formData.append('isbn', this.addProductForm.get('isbn')?.value);
     formData.append('category_id', this.addProductForm.get('category_id')?.value);
     formData.append('title', this.addProductForm.get('title')?.value);
     formData.append('author', this.addProductForm.get('author')?.value);
@@ -106,17 +114,17 @@ export class AddProductComponent implements OnInit{
     formData.append('quantity', this.addProductForm.get('quantity')?.value);
     formData.append('price', this.addProductForm.get('price')?.value);
 
-    this.productService.addProduct(this.addProductForm.value).subscribe({
+    this.productService.addProduct(formData).subscribe({
       next: (response) => {
-        alert('Product added successfully!');
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Product added successfully!' });
         this.addProductForm.reset();
         this.dialog.close();
+
       },
       error: (err) => {
-        console.log("🚀 ~ AddProductComponent ~ addProduct ~ formData:", formData)
-        alert('Failed to add product.');
-      },
-    })
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to add product' });
+    }
+  })
   }
 
   loadCategories(){

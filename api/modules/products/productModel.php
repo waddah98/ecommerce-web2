@@ -14,7 +14,16 @@ class ProductModel {
                 LEFT JOIN categories c ON p.category_id = c.id";
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($products as &$product) {
+            if (!empty($product['image'])) {
+                $product['image'] = base64_encode($product['image']);
+            } else {
+                $product['image'] = null; // Set to null if no image is available
+            }
+        }
+        return Response::json($products);
     }
 
     public function getProductById($id) {
